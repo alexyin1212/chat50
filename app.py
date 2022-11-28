@@ -21,7 +21,8 @@ Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///users.db")
-
+db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
+db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTO INCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
 
 
 @app.after_request
@@ -36,7 +37,8 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():   
-    return render_template("index.html")
+    posts = db.execute("SELECT * FROM posts SORT BY time")
+    return render_template("index.html", posts=posts)
 
 
 @app.route("/login", methods=["GET", "POST"])

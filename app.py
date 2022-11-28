@@ -41,6 +41,11 @@ def index():
     posts = db.execute("SELECT * FROM posts ORDER BY time")
     return render_template("index.html", posts=posts)
 
+@app.route("/post")
+@login_required
+def post():
+    return render_template("post.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

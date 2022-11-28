@@ -1,6 +1,7 @@
 # My personal touch is letting the user change the passowrd
 import os
 
+import cs50
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -20,9 +21,9 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///users.db")
-db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTO INCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
+db = cs50.SQL("sqlite:///users.db")
+db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
+db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
 
 
 @app.after_request
@@ -37,7 +38,7 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():   
-    posts = db.execute("SELECT * FROM posts SORT BY time")
+    posts = db.execute("SELECT * FROM posts ORDER BY time")
     return render_template("index.html", posts=posts)
 
 
@@ -130,52 +131,6 @@ def register():
 
     if request.method == "GET":
         return render_template("register.html")
-
-
-@app.route("/sell", methods=["GET", "POST"])
-@login_required
-def sell():
-    if request.method == "POST":
-        # check that shares and stock chosen are valid
-        stock = request.form.get("symbol")
-        shares = request.form.get("shares")
-        if not stock:
-            return apology("pick a stock")
-        if not shares:
-            return apology("pick how many shares")
-        shares = int(shares)
-
-        # get the number of shares user owns and compare with how many they're selling
-        shares_owned = db.execute("SELECT shares FROM portfolio WHERE id = ? AND symbol = ?",
-                                  session["user_id"], stock)[0]["shares"]
-        print(shares_owned)
-        if shares > shares_owned:
-            return apology("you don't own that many shares")
-
-        # insert transaction into history
-        price = lookup(stock)["price"]
-        now = datetime.now()
-        dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
-        db.execute("INSERT INTO history (id, symbol, shares, price, time) VALUES (?, ?, ?, ?, ?)",
-                   session["user_id"], stock, -shares, price, dt_string)
-
-        # update portfolio and delete row if number of shares < 1
-        db.execute("UPDATE portfolio SET shares = ? WHERE id = ? AND symbol = ?",
-                   shares_owned-shares, session["user_id"], stock)
-        db.execute("DELETE FROM portfolio WHERE shares < 1")
-
-        # update user's balance
-        gain = price * shares
-        balance = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
-        db.execute("UPDATE users SET cash = ? WHERE id = ?", balance+gain, session["user_id"])
-
-        return redirect("/")
-
-    if request.method == "GET":
-        # display form of stocks that can be sold
-        stocks = db.execute("SELECT symbol FROM portfolio WHERE id = ?", session["user_id"])
-        stocks = [stock["symbol"] for stock in stocks]
-        return render_template("sell.html", stocks=stocks)
 
 
 @app.route("/change_password", methods=["GET", "POST"])

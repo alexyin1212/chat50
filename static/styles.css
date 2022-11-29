@@ -25,7 +25,7 @@ nav .navbar-brand .green
 body
 {
     background-color: #202124;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .float{
@@ -43,4 +43,21 @@ body
 
 .my-float{
 	margin-top:22px;
+}
+
+.icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 100%;
+    color:white;
+}
+
+div.scroll {
+    width: auto;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px;
 }

@@ -5,16 +5,15 @@
 {% endblock %}
 
 {% block main %}
-<!-- asks for username and password to register user -->
-<form action="/post" method="post">
-    <div class="mb-3">
-        <label for="post">Post:</label>
-    </div>
-    <div class="mb-3">
-        <textarea class="form-control" id="post" rows="5" name="post" placeholder="Text" type="text"></textarea>
-    </div>
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Post</button>
-    </div>
-</form>
+    <form action="/post" method="post">
+        <div class="mb-3">
+            <label for="post">Post:</label>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="post" rows="5" name="post" placeholder="Text" type="text"></textarea>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
 {% endblock %}

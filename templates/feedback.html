@@ -6,24 +6,31 @@
 
 {% block main %}
 <div>
+        <!-- adapted from https://formsubmit.co/ -->
         <!-- I verified my email, and formsubmit.co encrypted my email to the following string -->
-       <div class="container">
-        <h1>FormSubmit Demo</h1>
+    <div class="container">
+        <h1>Hello! Thanks for using Sidechat50!</h1>
+        <h3>We are still in development so we would love to hear your feedback!</h3>
+        <h3>By submitting this form, you'll contact us directly by sending an email!</h3>
         <form target="_blank" action="https://formsubmit.co/4f9a095f20717ac56badb09663f81a34" method="POST">
-          <div class="row">
-            <div class="col">
-            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+            <div class="row my-4">
+                <div class="col">
+                <!-- <label for="name">Name</label> -->
+                <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                </div>
+                <div class="col">
+                <!-- <label for="email">Email</label> -->
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                </div>
             </div>
-            <div class="col">
-            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            <div class="form-group my-4">
+                <!-- <label for="message">Feedback!</label> -->
+                <textarea placeholder="Your Feedback" class="form-control" name="message" rows="5" required></textarea>
             </div>
-          </div>
-          <div class="form-group">
-            <textarea placeholder="Your Feedback" class="form-control" name="message" rows="10" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
-        </form>
-      </div>
+            <button type="submit" class="btn btn-lg btn-primary">Send us Feedback!</button>
+            </form>
+        </div>
+
     </div>
 
 </div>

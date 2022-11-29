@@ -8,6 +8,7 @@ Please download Flask and the CS50 library
 ```bash
 pip3 install flask
 pip3 install cs50
+```
 
 ## Usage
 

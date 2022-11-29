@@ -41,6 +41,17 @@ def index():
     posts = db.execute("SELECT * FROM posts ORDER BY time")
     return render_template("index.html", posts=posts)
 
+@app.route("/post", methods=["GET", "POST"])
+@login_required
+def post():
+    if request.method == "POST":
+        id = session["user_id"]
+        post = request.form.get("post")
+        db.execute("INSERT INTO posts (user_id, post) VALUES (?, ?)", id, post)
+        return redirect("/")
+    else:
+        return render_template("post.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

@@ -29,13 +29,13 @@
 </nav>
 <div data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
     {% for post in posts %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 80rem;">
         <div class="card-body">
           <h5 class="card-title">CS50</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ post["time"] }}</h6>
           <p class="card-text">{{ post["post"] }}</p>
         </div>
-      </div>
+    </div>
     {% endfor %}
 </div>
   <!-- creating a floating action button-->

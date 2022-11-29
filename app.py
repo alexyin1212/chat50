@@ -53,10 +53,10 @@ def post():
         return render_template("post.html")
 
 
-@app.route("/settings", methods=["GET", "POST"])
+@app.route("/profile", methods=["GET", "POST"])
 @login_required
-def settings():
-    return render_template("settings.html")
+def profile():
+    return render_template("profile.html")
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required

@@ -6,11 +6,9 @@
 
 {% block main %}
     <form action="/post" method="post">
+        <h3>Post:</h3>
         <div class="mb-3">
-            <label for="post">Post:</label>
-        </div>
-        <div class="mb-3">
-            <textarea class="form-control" id="post" rows="5" name="post" placeholder="Text" type="text"></textarea>
+            <textarea class="form-control" id="post" rows="5" name="post" placeholder="Post" type="text"></textarea>
         </div>
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Post</button>

@@ -5,26 +5,12 @@
 {% endblock %}
 
 {% block main %}
-<!-- nav bar that gives the option of hot new and top -->
-<div class="navbar fixed-top navbar-expand-lg bg-*" style="margin-top: 5%; margin-right: 3%;">
-        <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-          <li class="nav-item">
-            <a class="nav-link" href="#">HOT</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">NEW</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">TOP</a>
-          </li>
-        </ul>
-</div>
 <div class="container">
     {% for post in posts %}
     <div class="card" style="width: 80%; margin: 1% 10% 1%;">
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;">{{ post["time"] }}</h6>
-          <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
+          <p class="card-text" style="text-align: left; color: rgb(0, 0, 0)">{{ post["post"] }}</p>
         </div>
     </div>
     {% endfor %}

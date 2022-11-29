@@ -53,6 +53,17 @@ def post():
         return render_template("post.html")
 
 
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+    return render_template("settings.html")
+
+@app.route("/feedback", methods=["GET", "POST"])
+@login_required
+def feedback():
+    return render_template("feedback.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -99,20 +110,6 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-
-@app.route("/quote", methods=["GET", "POST"])
-@login_required
-def quote():
-    if request.method == "POST":
-        # lookup symbol and return quoet
-        symbol = request.form.get("symbol")
-        quote = lookup(symbol)
-        if quote is not None:
-            return render_template("quoted.html", quote=quote)
-        else:
-            return apology("symbol doesn't exist")
-    if request.method == "GET":
-        return render_template("quote.html")
 
 
 @app.route("/register", methods=["GET", "POST"])

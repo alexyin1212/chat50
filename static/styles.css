@@ -55,9 +55,9 @@ body
 
 div.scroll {
     width: auto;
-    height: 800px;
+    height: 600px;
     overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
     padding: 20px;
-  }
+}

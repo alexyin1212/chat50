@@ -8,10 +8,6 @@
 <!-- nav bar that gives the option of hot new and top -->
 <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">CS50</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
@@ -29,11 +25,10 @@
 </nav>
 <div class="scroll">
     {% for post in posts %}
-    <div class="card" style="width: 80rem;">
+    <div class="card" style="width: 80rem; margin: 10px 50px 10px;">
         <div class="card-body">
-          <h4 class="card-title">CS50</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ post["time"] }}</h6>
-          <p class="card-text">{{ post["post"] }}</p>
+          <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;">{{ post["time"] }}</h6>
+          <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
         </div>
     </div>
     {% endfor %}

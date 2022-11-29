@@ -6,9 +6,7 @@
 
 {% block main %}
 <!-- nav bar that gives the option of hot new and top -->
-<nav class="navbar fixed-top navbar-expand-lg bg-dark" style="margin-top: 4rem;">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="navbarScroll">
+<div class="navbar fixed-top navbar-expand-lg bg-*" style="margin-top: 5%; margin-right: 3%;">
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
             <a class="nav-link" href="#">HOT</a>
@@ -20,12 +18,10 @@
             <a class="nav-link" href="#">TOP</a>
           </li>
         </ul>
-      </div>
-    </div>
-</nav>
-<div style="margin-top: 6rem;">
+</div>
+<div class="container">
     {% for post in posts %}
-    <div class="card" style="width: 80rem; margin: 10px 50px 10px;">
+    <div class="card" style="width: 80%; margin: 1% 10% 1%;">
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted" style="text-align: right;">{{ post["time"] }}</h6>
           <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>

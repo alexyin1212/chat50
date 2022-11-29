@@ -7,13 +7,13 @@
 {% block main %}
 <div>
         <!-- adapted from https://formsubmit.co/ -->
-        <!-- This form allows the user to send a message to us via an email. It may be possible that there are verification checks that need to be 
+        <!-- This form allows the user to send an email to us using the form. It may be possible that there are verification checks that need to be 
             bypassed again because our website is hosted locally -->
     <div class="container">
         <h1>Hello! Thanks for using Sidechat50!</h1>
         <h3>We are still in development so we would love to hear your feedback!</h3>
         <h3>By submitting this form, you'll contact us directly by sending an email!</h3>
-         <!-- I verified my email, and formsubmit.co encrypted my email to the following string -->
+         <!-- I verified my email, and formsubmit.co encrypted my email address to the following string: 4f9a095f20717ac56badb09663f81a34  -->
         <form target="_blank" action="https://formsubmit.co/4f9a095f20717ac56badb09663f81a34" method="POST">
             <div class="row my-4">
                 <div class="col">
@@ -29,9 +29,7 @@
             <button type="submit" class="btn btn-lg btn-primary">Send us Feedback!</button>
             </form>
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

@@ -6,7 +6,7 @@
 
 {% block main %}
 <!-- nav bar that gives the option of hot new and top -->
-<nav class="navbar navbar-expand-lg bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg bg-dark" style="margin-top: 4rem;">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
@@ -23,7 +23,7 @@
       </div>
     </div>
 </nav>
-<div class="scroll">
+<div style="margin-top: 6rem;">
     {% for post in posts %}
     <div class="card" style="width: 80rem; margin: 10px 50px 10px;">
         <div class="card-body">

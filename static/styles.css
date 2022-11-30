@@ -59,3 +59,42 @@ body
     margin-right: auto;
     margin-top: 2vh;
 }
+
+.card {
+    background-color: rgb(49, 49, 49);
+    width: 80%; 
+    margin: 1% 10% 1%;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 1vw solid transparent;
+    border-right: 1vw solid transparent;
+    border-bottom: 2vh solid rgb(108, 108, 108);
+    cursor: pointer;
+  }
+
+  .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 1vw solid transparent;
+    border-right: 1vw solid transparent;
+    border-top: 2vh solid rgb(108, 108, 108);
+    cursor: pointer;
+  }
+
+  .arrow-up.on {
+    border-top: 2vh solid rgb(199, 151, 249);
+  }
+
+  .arrow-down.on {
+    border-top: 2vh solid rgb(199, 151, 249);
+  }
+
+  .vertical-center {
+    position: absolute;
+    right: 0.5%;
+    top: 50%;
+    transform: translate(0,-50%);
+  }

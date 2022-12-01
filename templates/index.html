@@ -9,19 +9,15 @@
 <div class="container">
     {% for post in posts %}
     <div class="card">
-        <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; color: rgb(201, 201, 201);">{{ post["time"] }}</h6>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-11">
-                        <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
-                    </div>
-                    <div class="col-lg-1 vertical-center" style="text-align: right;">
-                        <span onclick="like_function()" id="like" class="arrow-up"></span>
-                        <div id="counter" style="margin-top: 40%; margin-bottom: 40%; margin-right: 0.72vw;">0</div>
-                        <span onclick="dislike_function()" id="dislike" class="arrow-down"></span>
-                    </div>
-                </div>
+        <div class="card-body" style="display: block;">
+            <div class="split-left">
+                <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; color: rgb(201, 201, 201);">{{ post["time"] }}</h6>
+                <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
+            </div>
+            <div class="split-right">
+                <span onclick="like_function()" id="like" class="arrow-up"></span>
+                <div id="counter" style="margin-top: 80%; margin-bottom: 80%;">0</div>
+                <span onclick="dislike_function()" id="dislike" class="arrow-down"></span>
             </div>
         </div>
     </div>

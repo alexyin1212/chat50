@@ -92,9 +92,20 @@ body
     border-top: 2vh solid rgb(199, 151, 249);
   }
 
-  .vertical-center {
+  .vertical {
     position: absolute;
-    right: 0.5%;
-    top: 50%;
-    transform: translate(0,-50%);
+    top: 0;
+    text-align: center;
+  }
+
+  .split-left {
+    width: 96%; 
+    float: left; 
+    display: inline-block;
+  }
+
+  .split-right {
+    width:4%; 
+    float: left; 
+    display: inline-block;
   }

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Change Password
+{% endblock %}
+
+{% block main %}
+<!-- 2 inputs to change the password -->
+    <div>
+        Pick a new username!
+    </div>
+    <form action="/change_username" method="post">
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="new_username" name="new_username" placeholder="New Username">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm Username">
+        </div>
+        <button class="btn btn-primary" type="submit">Change Username</button>
+    </form>
+{% endblock %}

@@ -42,6 +42,14 @@ def index():
     return render_template("index.html", posts=posts)
 
 
+@app.route("/my_posts")
+@login_required
+def my_posts():   
+    id = session["user_id"]
+    posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC", id)
+    return render_template("index.html", posts=posts)
+
+
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def post():
@@ -57,7 +65,8 @@ def post():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    return render_template("profile.html")
+    username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
+    return render_template("profile.html", username=username)
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required
@@ -161,3 +170,27 @@ def change_password():
 
     if request.method == "GET":
         return render_template("change_password.html")
+
+
+@app.route("/change_username", methods=["GET", "POST"])
+@login_required
+def change_username():
+    if request.method == "POST":
+        new_username = request.form.get("new_username")
+        confirmation = request.form.get("confirmation")
+        if not new_username or not confirmation:
+            return apology("must type in a username!")
+        if new_username != confirmation:
+            apology("usernames don't match")
+        current_username = db.execute("SELECT username FROM users")
+        if new_username == current_username:
+            apology("Your new username is the same as your old ")
+        existing_users = db.execute("SELECT username FROM users")
+
+        if new_username in [user["username"] for user in existing_users]:
+            return apology("this username already exists")
+        db.execute("UPDATE users SET username = ? WHERE id = ?", new_username, session["user_id"])
+        return redirect("/")
+
+    if request.method == "GET":
+        return render_template("change_username.html")

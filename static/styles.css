@@ -66,31 +66,27 @@ body
     margin: 1% 10% 1%;
 }
 
-.arrow-up {
-    width: 0;
-    height: 0;
-    border-left: 1vw solid transparent;
-    border-right: 1vw solid transparent;
-    border-bottom: 2vh solid rgb(108, 108, 108);
+.arrow {
+    border: solid black;
+    border-width: 0 1vh 1vh 0;
+    display: inline-block;
+    padding: 1vh;
     cursor: pointer;
-  }
+}
 
-  .arrow-down {
-    width: 0;
-    height: 0;
-    border-left: 1vw solid transparent;
-    border-right: 1vw solid transparent;
-    border-top: 2vh solid rgb(108, 108, 108);
-    cursor: pointer;
-  }
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
 
-  .arrow-up.on {
-    border-top: 2vh solid rgb(199, 151, 249);
-  }
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
 
-  .arrow-down.on {
-    border-top: 2vh solid rgb(199, 151, 249);
-  }
+.on {
+    border-color: rgb(199, 151, 249);
+}
 
   .vertical {
     position: absolute;

@@ -5,8 +5,6 @@
 {% endblock %}
 
 {% block main %}
-<script src="function.js"></script>
-<div class="container">
     {% for post in posts %}
     <div class="card">
         <div class="card-body" style="display: block;">
@@ -15,14 +13,13 @@
                 <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
             </div>
             <div class="split-right">
-                <span onclick="like_function()" id="like" class="arrow-up"></span>
-                <div id="counter" style="margin-top: 80%; margin-bottom: 80%;">0</div>
-                <span onclick="dislike_function()" id="dislike" class="arrow-down"></span>
+                <span onclick="like({{post.id}})" id="like{{post.id}}" class="arrow up"></span>
+                <div id="counter{{post.id}}" style="margin-top: 80%; margin-bottom: 80%;">0</div>
+                <span onclick="dislike({{post.id}})" id="dislike{{post.id}}" class="arrow down"></span>
             </div>
         </div>
     </div>
     {% endfor %}
-</div>
 
 <!-- creating a floating action button -->
 <a href="/post" class="float">

@@ -6,8 +6,13 @@
 
 {% block main %}
 <div>
-    <button type="button" class="btn btn-outline-primary">Change Username</button>
-    <button type="button" class="btn btn-outline-primary">Change Password</button>
+    <div>
+      Username: {{ username }}
+      <a href="/change_username" type="button" class="btn btn-outline-primary">Change Username</a>
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-primary">Change Password</button>
+    </div>
     <div class="container">
         <p>Background Color:</p>
         <form>

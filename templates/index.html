@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Sidechat50
+    Home
 {% endblock %}
 
 {% block main %}
@@ -15,7 +15,7 @@
             </div>
             <div class="split-right">
                 <span onclick="like({{post.id}})" id="like{{post.id}}" class="arrow up"></span>
-                <div id="counter{{post.id}}" style="margin-top: 80%; margin-bottom: 80%;">0</div>
+                <div id="counter{{post.id}}" style="margin-top: 50%; margin-bottom: 50%;">0</div>
                 <span onclick="dislike({{post.id}})" id="dislike{{post.id}}" class="arrow down"></span>
             </div>
         </div>

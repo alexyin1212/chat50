@@ -23,7 +23,7 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = cs50.SQL("sqlite:///users.db")
 db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
+db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, likes INTEGER DEFAULT(0), 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
 
 
 @app.after_request
@@ -67,6 +67,7 @@ def post():
 def profile():
     username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
     return render_template("profile.html", username=username)
+        
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required

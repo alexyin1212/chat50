@@ -24,16 +24,8 @@ nav .navbar-brand .green
 
 body
 {
-    background-color: rgb(35, 35, 35);
+    background-color: #202124;
     color: rgb(255, 255, 255);
-}
-
-.purple {
-    background-color: rgb(227, 194, 255);
-}
-
-.light {
-    background-color: rgb(233, 233, 233);
 }
 
 .float{

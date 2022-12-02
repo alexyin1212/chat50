@@ -50,6 +50,7 @@ def my_posts():
     return render_template("my_posts.html", posts=posts)
 
 
+
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def post():
@@ -67,7 +68,6 @@ def post():
 def profile():
     username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
     return render_template("profile.html", username=username)
-        
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required

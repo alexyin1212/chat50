@@ -65,27 +65,4 @@ function dislike(id) {
         counter.innerHTML = count;
     }
 }
-
-function change_color(id) {
-    let name = document.getElementById(id).name
-    if (name == "dark") {
-        .body {
-            background-color: rgb(35, 35, 35);
-            color: rgb(255, 255, 255);
-        }
-    }
-    else if (name == "purple") {
-        .body {
-            background-color: rgb(227, 194, 255);
-            color: rgb(255, 255, 255);
-        }
-    }
-    else {
-        .body {
-            background-color: rgb(233, 233, 233);
-            color: 'black';
-        }
-    }
-    
-}
     

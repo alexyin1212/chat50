@@ -25,6 +25,7 @@ db = cs50.SQL("sqlite:///users.db")
 db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
 db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, likes INTEGER DEFAULT(0), 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
 
+# set default background to dark
 
 @app.after_request
 def after_request(response):
@@ -65,9 +66,19 @@ def post():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
-    return render_template("profile.html", username=username)
-        
+    if request.method == "GET":
+        username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
+        return render_template("profile.html", username=username, color=session["background_color"])
+    else:
+        username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
+        color = request.form.get("value")
+        if color == "purple":
+            session["background_color"] = "purple"
+        elif color == "light":
+            session["background_color"] = "light"
+        else:
+            session["background_color"] = "dark"
+    return render_template("profile.html", username=username, color=session["background_color"])
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required

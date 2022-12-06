@@ -21,9 +21,13 @@
         <title>Sidechat50: {% block title %}{% endblock %}</title>
 
     </head>
-
+    {% if session["background_color"] == "light" %}
+    <body style="background-color: rgb(233, 233, 233);">
+    {% elif session["background_color"] == "purple" %}
+    <body style="background-color: rgb(227, 194, 255);">
+    {% else %}
     <body>
-
+    {% endif %}
         <nav class="sticky-top bg-light border navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/"><span class="red">SIDE</span><span class="blue">CHAT</span><span class="yellow">50</span></a>

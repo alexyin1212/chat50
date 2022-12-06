@@ -1,30 +1,27 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    User Settings
+    User profile
 {% endblock %}
 
 {% block main %}
 <div>
     <div>
       Username: {{ username }}
-      <a href="/change_username" type="button" class="btn btn-outline-primary">Change Username</a>
+      <a href="/change_username" type="button" style="margin-bottom: 2%;">Change Username</a>
     </div>
     <div>
       <a href="/change_password" type="button" class="btn btn-outline-primary">Change Password</a>
     </div>
     <div class="container">
         <p>Background Color:</p>
-        <form>
-          <label class="radio-inline">
-            <input type="radio" name="dark" id="1" checked onclick="change_color(1)">Option 1
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="purple" id="2" onclick="change_color(2)">Option 2
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="light" id="3" onclick="change_color(3)">Option 3
-          </label>
+        <form action="/profile">
+          <input type="radio" value="dark" id="1" checked onchange="this.form.submit()">
+          <label class="radio-inline">dark mode</label>
+          <input type="radio" value="purple" id="2" onchange="this.form.submit()">
+          <label class="radio-inline">purple mode</label>
+          <input type="radio" value="light" id="3" onchange="this.form.submit()">
+          <label class="radio-inline">light mode</label>
         </form>
       </div>
 </div>

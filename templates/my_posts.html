@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<div class="container">
     {% for post in posts %}
     <div class="card">
         <div class="card-body" style="display: block;">
@@ -28,7 +29,7 @@
         </div>
     </div>
     {% endfor %}
-
+</div>
 <!-- creating a floating action button -->
 <a href="/post" class="float">
     <p class="icon">post</p>

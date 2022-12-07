@@ -24,3 +24,6 @@ Use the following command to run the website locally on your system
 flask run
 ```
 
+## Video 
+[![Watch the video](https://youtu.be/VClVmJnWn7w/maxresdefault.jpg)](https://youtu.be/VClVmJnWn7w)
+

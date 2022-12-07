@@ -1,4 +1,4 @@
-function like(id) {
+function like(id, user_id) {
     let like = document.getElementById("like" + id);
     let dislike = document.getElementById("dislike" + id);
     let counter = document.getElementById("counter" + id)
@@ -29,11 +29,22 @@ function like(id) {
         count--;
         counter.innerHTML = count;
     }
+
+    var dict = {"likes": count, "post_id": id, "user_id": user_id, "status": "liked"};    
+    var dataJson = JSON.stringify(dict);
+    
+    $.ajax({
+        url: "/likes",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: dataJson
+    });
 }
 
 
 
-function dislike(id) {   
+function dislike(id, user_id) {   
     let like = document.getElementById("like" + id);
     let dislike = document.getElementById("dislike" + id);
     let counter = document.getElementById("counter" + id)
@@ -64,4 +75,16 @@ function dislike(id) {
         count++;
         counter.innerHTML = count;
     }
+
+    var dict = {"likes": count, "post_id": id, "user_id": user_id, "status": "disliked"};
+    var dataJson = JSON.stringify(dict);
+    
+    $.ajax({
+        url: "/likes",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: dataJson
+    });
 }
+

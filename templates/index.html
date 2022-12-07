@@ -14,9 +14,17 @@
                 <p class="card-text" style="text-align: left;">{{ post["post"] }}</p>
             </div>
             <div class="split-right">
-                <span onclick="like({{post.id}})" id="like{{post.id}}" class="arrow up"></span>
-                <div id="counter{{post.id}}" style="margin-top: 50%; margin-bottom: 50%;">0</div>
-                <span onclick="dislike({{post.id}})" id="dislike{{post.id}}" class="arrow down"></span>
+                {% if post["id"] in likes %}
+                <span onclick="like({{post.id}}, {{session['user_id']}})" id="like{{post.id}}" class="arrow up on "></span>
+                {% else %}
+                <span onclick="like({{post.id}}, {{session['user_id']}})" id="like{{post.id}}" class="arrow up"></span>
+                {% endif %}
+                <div id="counter{{post.id}}" style="margin-top: 50%; margin-bottom: 50%;">{{ post["likes"] }}</div>
+                {% if post["id"] in dislikes %}
+                <span onclick="dislike({{post.id}}, {{session['user_id']}})" id="dislike{{post.id}}" class="arrow down on"></span>
+                {% else %}
+                <span onclick="dislike({{post.id}}, {{session['user_id']}})" id="dislike{{post.id}}" class="arrow down"></span>
+                {% endif %}
             </div>
         </div>
     </div>

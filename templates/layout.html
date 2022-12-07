@@ -15,22 +15,17 @@
         <link href="/static/favicon.ico" rel="icon">
 
         <link href="/static/styles.css" rel="stylesheet">
-
+        
+        <script src="/static/jquery-3.6.1.min.js"></script>
         <script src="/static/function.js"></script>
 
         <title>Sidechat50: {% block title %}{% endblock %}</title>
 
     </head>
-    {% if session["background_color"] == "light" %}
-    <body style="background-color: rgb(233, 233, 233);">
-    {% elif session["background_color"] == "purple" %}
-    <body style="background-color: rgb(227, 194, 255);">
-    {% else %}
     <body>
-    {% endif %}
-        <nav class="sticky-top bg-light border navbar navbar-expand-md navbar-light">
+        <nav class="sticky-top bg-dark border navbar navbar-expand-md navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/"><span class="red">SIDE</span><span class="blue">CHAT</span><span class="yellow">50</span></a>
+                <a class="navbar-brand" href="/"><span class="dark">SI</span><span class="pink">DE</span><span class="light-pink">CH</span><span class="lighter">AT</span><span class="light">5</span><span class="lightest">0</span></a>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -47,9 +42,8 @@
                                 </a>
                                 <!-- dropdown menu to order posts differently -->
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" style="color: rgb(25, 18, 174)" href="#">HOT</a></li>
-                                  <li><a class="dropdown-item" style="color: rgb(25, 18, 174)" href="#">NEW</a></li>
-                                  <li><a class="dropdown-item" style="color: rgb(25, 18, 174)" href="#">TOP</a></li>
+                                  <li><a class="dropdown-item" style="color: rgb(25, 18, 174)" href="/">NEW</a></li>
+                                  <li><a class="dropdown-item" style="color: rgb(25, 18, 174)" href="/top">TOP</a></li>
                                 </ul>
                               </li>
                         </ul>

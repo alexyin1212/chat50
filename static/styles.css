@@ -5,35 +5,35 @@ nav .navbar-brand
 }
 
 /* Colors for brand */
-nav .navbar-brand .blue
+nav .navbar-brand .lighter
 {
-    color: #537fbe;
+    color: #ff8fdd;
 }
-nav .navbar-brand .red
+nav .navbar-brand .light-pink
 {
-    color: #ea433b;
+    color: #ff60cf;
 }
-nav .navbar-brand .yellow
+nav .navbar-brand .dark
 {
-    color: #f5b82e;
+    color: #ff00bb;
 }
-nav .navbar-brand .green
+nav .navbar-brand .pink
 {
-    color: #2e944b;
+    color: #fb3dc8;
+}
+nav .navbar-brand .light
+{
+    color: #ffaef0;
+}
+nav .navbar-brand .lightest
+{
+    color: #ffd0f4;
 }
 
 body
 {
-    background-color: rgb(35, 35, 35);
+    background-color: #202124;
     color: rgb(255, 255, 255);
-}
-
-.purple {
-    background-color: rgb(227, 194, 255);
-}
-
-.light {
-    background-color: rgb(233, 233, 233);
 }
 
 .float{

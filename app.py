@@ -1,9 +1,9 @@
-# My personal touch is letting the user change the passowrd
 import os
-
+import json
 import cs50
+
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -23,9 +23,11 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = cs50.SQL("sqlite:///users.db")
 db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
-db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, likes INTEGER DEFAULT(0), 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
+db.execute("CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, post TEXT NOT NULL, likes INTEGER NOT NULL DEFAULT(0), 'time' DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id))")
+db.execute("CREATE TABLE IF NOT EXISTS liked (post_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY(post_id) REFERENCES posts(id), FOREIGN KEY(user_id) REFERENCES users(id))")
+db.execute("CREATE TABLE IF NOT EXISTS disliked (post_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY(post_id) REFERENCES posts(id), FOREIGN KEY(user_id) REFERENCES users(id))")
 
-# set default background to dark
+
 
 @app.after_request
 def after_request(response):
@@ -39,16 +41,86 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():   
+    id = session["user_id"]
     posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
-    return render_template("index.html", posts=posts)
+    liked = db.execute("SELECT post_id FROM liked WHERE user_id = ?", id)
+    disliked = db.execute("SELECT post_id FROM disliked WHERE user_id = ?", id)
+    likes = []
+    dislikes = []
+    for post in liked:
+        likes.append(post["post_id"])
 
+    for post in disliked:
+        dislikes.append(post["post_id"])
+
+    return render_template("index.html", posts=posts, likes=likes, dislikes=dislikes)
+
+@app.route("/top")
+@login_required
+def top():   
+    id = session["user_id"]
+    posts = db.execute("SELECT * FROM posts ORDER BY likes DESC")
+    liked = db.execute("SELECT post_id FROM liked WHERE user_id = ?", id)
+    disliked = db.execute("SELECT post_id FROM disliked WHERE user_id = ?", id)
+    likes = []
+    dislikes = []
+    for post in liked:
+        likes.append(post["post_id"])
+
+    for post in disliked:
+        dislikes.append(post["post_id"])
+
+    return render_template("index.html", posts=posts, likes=likes, dislikes=dislikes)
+
+@app.route("/likes", methods=["GET", "POST"])
+@login_required
+def likes():
+    if request.method == "POST":
+        data = {}
+        data["id"] = request.json["post_id"]
+        data["likes"] = int(request.json["likes"])
+        data["user_id"] = request.json["user_id"]
+        db.execute("UPDATE posts SET likes = ? WHERE id = ?", data["likes"], data["id"])
+        data["status"] = request.json["status"]
+        liked = db.execute("SELECT * FROM liked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+        disliked = db.execute("SELECT * FROM disliked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+        if data["status"] == "liked":
+                if liked:
+                    db.execute("DELETE FROM liked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+                elif disliked:
+                    db.execute("DELETE FROM disliked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+                    db.execute("INSERT INTO liked (post_id, user_id) VALUES (?, ?)", data["id"], data["user_id"])
+                else:
+                    db.execute("INSERT INTO liked (post_id, user_id) VALUES (?, ?)", data["id"], data["user_id"])
+        else:
+                if disliked:
+                    db.execute("DELETE FROM disliked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+                elif liked:
+                    db.execute("DELETE FROM liked WHERE post_id = ? AND user_id = ?", data["id"], data["user_id"])
+                    db.execute("INSERT INTO disliked (post_id, user_id) VALUES (?, ?)", data["id"], data["user_id"])
+                else:
+                    db.execute("INSERT INTO disliked (post_id, user_id) VALUES (?, ?)", data["id"], data["user_id"])
+
+        return redirect("/")
+    else:
+        return redirect("/")
 
 @app.route("/my_posts")
 @login_required
-def my_posts():   
+def my_posts():
     id = session["user_id"]
     posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC", id)
-    return render_template("index.html", posts=posts)
+    liked = db.execute("SELECT post_id FROM liked WHERE user_id = ?", id)
+    disliked = db.execute("SELECT post_id FROM disliked WHERE user_id = ?", id)
+    likes = []
+    dislikes = []
+    for post in liked:
+        likes.append(post["post_id"])
+
+    for post in disliked:
+        dislikes.append(post["post_id"])
+    return render_template("my_posts.html", posts=posts, likes=likes, dislikes=dislikes)
+
 
 
 @app.route("/post", methods=["GET", "POST"])
@@ -63,22 +135,11 @@ def post():
         return render_template("post.html")
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile")
 @login_required
 def profile():
-    if request.method == "GET":
-        username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
-        return render_template("profile.html", username=username, color=session["background_color"])
-    else:
-        username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
-        color = request.form.get("value")
-        if color == "purple":
-            session["background_color"] = "purple"
-        elif color == "light":
-            session["background_color"] = "light"
-        else:
-            session["background_color"] = "dark"
-    return render_template("profile.html", username=username, color=session["background_color"])
+    username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
+    return render_template("profile.html", username=username)
 
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required
@@ -156,6 +217,7 @@ def register():
         # hash the password and insert username and password into database
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=8)
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hashed_password)
+        session["background_color"] = ""
 
         return redirect("/login")
 

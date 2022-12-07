@@ -55,6 +55,7 @@ def index():
 
     return render_template("index.html", posts=posts, likes=likes, dislikes=dislikes)
 
+# sort by top karmas
 @app.route("/top")
 @login_required
 def top():   

@@ -25,5 +25,5 @@ flask run
 ```
 
 ## Video 
-[Watch the video](https://youtu.be/VClVmJnWn7w)
+[Watch our video](https://youtu.be/VClVmJnWn7w)
 

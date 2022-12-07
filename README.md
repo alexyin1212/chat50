@@ -5,6 +5,7 @@ Sidechat50 is a website implementation of the popular social networking app Side
 ## Contributers
 This project was made by Alex Yin and Bridget Ma! We are first years at Harvard College interested in Computer Science! We had lots of fun doing this project and would love to keep on improving our work!
 
+![Alt text]([http://full/path/to/img.jpg](https://drive.google.com/file/d/1xlnsHrAMrRaFcjU8f-Y4CSR47Y2hBsOQ/view?usp=sharing) "Index Page")
 
 ## Installation
 Please download Flask and the CS50 library

@@ -1,4 +1,5 @@
 import os
+# import json so that it can be used with ajax to receive data from js
 import json
 import cs50
 
@@ -38,13 +39,16 @@ def after_request(response):
     return response
 
 
+# displays the login screen for the user
 @app.route("/")
 @login_required
 def index():   
+    # gets the session id of the user, all the posts from the database, as well as the liked posts of the current user
     id = session["user_id"]
     posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
     liked = db.execute("SELECT post_id FROM liked WHERE user_id = ?", id)
     disliked = db.execute("SELECT post_id FROM disliked WHERE user_id = ?", id)
+    # create arrays and adds all the liked and disliked posts to them
     likes = []
     dislikes = []
     for post in liked:
@@ -55,7 +59,7 @@ def index():
 
     return render_template("index.html", posts=posts, likes=likes, dislikes=dislikes)
 
-# sort by top karmas
+# Display index by votes descending
 @app.route("/top")
 @login_required
 def top():   
@@ -72,6 +76,7 @@ def top():
         dislikes.append(post["post_id"])
 
     return render_template("index.html", posts=posts, likes=likes, dislikes=dislikes)
+
 
 @app.route("/likes", methods=["GET", "POST"])
 @login_required
@@ -106,6 +111,8 @@ def likes():
     else:
         return redirect("/")
 
+
+# displays all posts made by current user
 @app.route("/my_posts")
 @login_required
 def my_posts():
@@ -123,7 +130,7 @@ def my_posts():
     return render_template("my_posts.html", posts=posts, likes=likes, dislikes=dislikes)
 
 
-
+# displays page for user to create a post
 @app.route("/post", methods=["GET", "POST"])
 @login_required
 def post():
@@ -136,18 +143,25 @@ def post():
         return render_template("post.html")
 
 
+# shows user profile which contains hyperlinks to change password and usernam
 @app.route("/profile")
 @login_required
 def profile():
+    # gets the current user's username from teh database
     username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]['username']
-    return render_template("profile.html", username=username)
+    # gets the user's number of karma received 
+    karma = db.execute("SELECT SUM(likes) AS k FROM posts WHERE user_id = ?", session["user_id"])
+    return render_template("profile.html", username=username, karma=karma[0]["k"])
 
+
+# displays page allowing users to send feedback to us developers
 @app.route("/feedback", methods=["GET", "POST"])
 @login_required
 def feedback():
     return render_template("feedback.html")
 
 
+# displays login page for the user
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -183,7 +197,7 @@ def login():
     else:
         return render_template("login.html")
 
-
+# signs the user out 
 @app.route("/logout")
 def logout():
     """Log user out"""

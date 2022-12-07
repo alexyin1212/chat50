@@ -1,6 +1,6 @@
 # Sidechat50
 
-Sidechat50 is a website implementation of the popular social networking app Sidechat. Sidechat has grown significantly in popularity on college campuses, allowing students to anonymously create a wide range of posts, from hilarious memes to sad stories. 
+Sidechat50 is a website implementation of the popular social networking app Sidechat. Sidechat has grown significantly in popularity on college campuses, allowing students to anonymously create a wide range of posts, from hilarious memes to sad stories. On our website, users will be able to register and account, create posts visible to all users, and keep track of how many likes their posts get. 
 
 ## Installation
 Please download Flask and the CS50 library
@@ -11,6 +11,8 @@ pip3 install cs50
 ```
 
 ## Usage
-
+Use the following command to run the website locally on your system
 ```python
 flask run
+```
+
